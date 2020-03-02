@@ -1,0 +1,23 @@
+ion-content{
+    --background:url(../../../assets/fondo.jpg) center center / cover;
+}
+
+ion-content > h1{
+    font-size: 38px;
+    margin: 0 auto;
+    position: relative;
+    top: 45%;
+    left: 22%;
+    right: 25%;
+    color: white;
+}
+
+ion-content > h3{
+    font-size: 38px;
+    margin: 0 auto;
+    position: relative;
+    top: 45%;
+    left: 22%;
+    right: 25%;
+    color: white;
+}

@@ -1,0 +1,26 @@
+ion-content{
+    --background:url(../../../assets/fondo.jpg) center center / cover;
+}
+
+ion-card{
+    position: relative;
+    top: 30%;
+}
+
+.btn-center-alingn{
+    text-align: center!important;
+}
+
+.user-avatar {
+    text-align: center!important;
+}
+
+.btn-center-alingn ion-button{
+    --color: white;
+}
+
+.btn-center-alingn ion-button:hove{
+    --color: black;
+}
+
+

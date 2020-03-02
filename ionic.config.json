@@ -1,0 +1,8 @@
+{
+  "name": "proyectoBD",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}
