@@ -1,43 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
   GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
   Marker,
-  Environment,
+  Geocoder,
+  GeocoderResult,
   MarkerCluster
 } from '@ionic-native/google-maps';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
-  selector: 'app-mapa',
-  templateUrl: './mapa.page.html',
-  styleUrls: ['./mapa.page.scss'],
+  selector: 'app-paquete-agregar',
+  templateUrl: './paquete-agregar.page.html',
+  styleUrls: ['./paquete-agregar.page.scss'],
 })
-export class MapaPage implements OnInit {
+export class PaqueteAgregarPage implements OnInit {
 
   constructor(
-    private loadingCtrl: LoadingController,
-    public modalController: ModalController,
-    public geolocation:Geolocation
+    public geolocation:Geolocation,
+    private loadingCtrl: LoadingController
   ) { }
+
   
   lat:number = 0;
   lon:number = 0;
   map: GoogleMap;
   loading: any;
+  search_address: any;
 
-  async ngOnInit() {
-    
-    this.loadMap();
-  }
+  newLat: number;
+  newLon: number;
+
   
-  async loadMap() {
-    
+  async ngOnInit() {    
+    this.loadMap();
+  }  
+  
+  async loadMap() {  
     // Obtiene la ubicacion
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude
@@ -52,7 +54,7 @@ export class MapaPage implements OnInit {
     await this.loading.present();
     
     
-    //Configuracion del mapap
+    //Configuracion del mapa
     let mapOptions: GoogleMapOptions = {
       camera: {
          target: {
@@ -79,9 +81,9 @@ export class MapaPage implements OnInit {
       }
     });
     marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-      confirm('Usted esta aqui');
+      alert('Usted esta aqui');
     });
-
+  
     this.addCluster(this.dummyData());
   }
 
@@ -102,7 +104,6 @@ export class MapaPage implements OnInit {
     markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((params) => {
       let marker: Marker = params[1];
       marker.setTitle(marker.get("name"));
-      confirm('Paquete entregado?');
       marker.setSnippet(marker.get("address"));
       marker.showInfoWindow();
     });
@@ -132,5 +133,42 @@ export class MapaPage implements OnInit {
     ];
   }
 
+  
+  async Buscar(event) {
+
+    await this.loading.present();
+    //this.map.clear();
+
+
+    // Address -> latitude,longitude
+    Geocoder.geocode({
+      "address": this.search_address
+    }).then((results: GeocoderResult[]) => {
+      console.log(results);
+  
+      this.loading.dismiss();
+        
+      // Add a marker
+      
+      if (results.length > 0) {
+        let marker: Marker = this.map.addMarkerSync({
+          'position': results[0].position,
+          'title':  JSON.stringify(results[0].position)
+        });
+        this.map.animateCamera({
+          'target': marker.getPosition(),
+          'zoom': 17
+        });
+        this.newLat =  marker.getPosition().lat;
+        
+        this.newLon =  marker.getPosition().lng;
+
+        console.log( marker.getPosition());
+      marker.showInfoWindow();
+      } else {
+        alert("No encontrado");
+      }
+    });
+  }
 
 }

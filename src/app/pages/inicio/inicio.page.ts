@@ -19,20 +19,20 @@ export class InicioPage implements OnInit {
       permiso: '1'
     },
     {
-      title: 'Agregar Ubicación',
-      url: 'mapa-modal',
+      title: 'Agregar Paquete',
+      url: 'paquete-agregar',
       icon: 'pin',
       permiso: '1'
     },
     {
       title: 'Usuarios',
-      url: 'inicio/usuarios',
+      url: 'usuarios',
       icon: 'people',
-      permiso: '1'
+      permiso: '2'
     },
     {
       title: 'Paquetes',
-      url: 'inicio/paquete',
+      url: 'paquete',
       icon: 'briefcase',
       permiso: '1'
     }
@@ -42,7 +42,7 @@ export class InicioPage implements OnInit {
   
   Nombre: any;
   Apellido:any;
-  Permisos: any = 1;
+  PermisosUsuarios: any;
 
   constructor(
     private router: Router,    
@@ -61,11 +61,10 @@ export class InicioPage implements OnInit {
   cabiar(){
     this.Storage.getStorange('Apellido').then((val) => { this.Apellido = val.property });    
     this.Storage.getStorange('Nombre').then((val) => { this.Nombre = val.property });
-    //this.Storage.getStorange('TipoUsuario').then((val) => { this.Permisos.TipoUsuario = val.property;});
+    this.Storage.getStorange('TipoUsuario').then((val) => { this.PermisosUsuarios = val.property });
   }
 
-  Logout(){
-    
+  Logout(){    
     this.Storage.clearStorange();
     this.router.navigateByUrl('login');
   }

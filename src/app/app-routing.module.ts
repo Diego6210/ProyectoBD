@@ -23,6 +23,26 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
+  {
+    path: 'usuarios-modificar',
+    loadChildren: () => import('./pages/usuarios-modificar/usuarios-modificar.module').then( m => m.UsuariosModificarPageModule)
+  },
+  {
+    path: 'usuarios-agregar',
+    loadChildren: () => import('./pages/usuarios-agregar/usuarios-agregar.module').then( m => m.UsuariosAgregarPageModule)
+  },
+  {
+    path: 'usuarios',
+    loadChildren: () => import('./pages/usuarios/usuarios.module').then( m => m.UsuariosPageModule)
+  },
+  {
+    path: 'paquete',
+    loadChildren: () => import('./pages/paquete/paquete.module').then( m => m.PaquetePageModule)
+  },
+  {
+    path: 'paquete-agregar',
+    loadChildren: () => import('./pages/paquete-agregar/paquete-agregar.module').then( m => m.PaqueteAgregarPageModule)
   }
 ];
 

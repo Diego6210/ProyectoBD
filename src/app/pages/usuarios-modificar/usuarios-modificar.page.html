@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons (click)="dismiss()" slot="start">
+      <ion-back-button defaultHref="usuarios" ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Modificar Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list lines="full" class="ion-no-margin ion-no-padding">
+    <br>
+    <ion-item>
+      <ion-label position="stacked">Usuario <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input [(ngModel)]="Usuario" disabled="true" required type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Contraseña <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input [(ngModel)]="Contrasena" required type="text"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="stacked">Nombre <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input [(ngModel)]="Nombre"  required type="text"></ion-input>
+    </ion-item>
+
+    
+    <ion-item>
+      <ion-label position="stacked">Apellido <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input [(ngModel)]="Apellido"  required type="text"></ion-input>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label>Tipo de Usuario</ion-label>
+      <ion-select [(ngModel)]="TipoUsuario"  value="admin">
+        <ion-select-option value="1">Empleado</ion-select-option>
+        <ion-select-option value="2">Administrador</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+  </ion-list>
+  <section>
+    <ion-button *ngIf="Usuario != '' && Nombre != '' && Apellido != '' && TipoUsuario != '' && Contrasena != ''" expand="block">Modificar</ion-button>
+  </section>
+</ion-content>

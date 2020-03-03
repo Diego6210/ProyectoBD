@@ -9,11 +9,25 @@ const routes: Routes = [
     component: InicioPage,
     children:
     [
-      { path: 'mapa', 
-      loadChildren: () => import('../mapa/mapa.module').then( m => m.MapaPageModule)
+      { 
+        path: 'mapa', 
+        loadChildren: () => import('../mapa/mapa.module').then( m => m.MapaPageModule)
       },
-      { path: 'dashboard', 
+      {
+        path: 'dashboard', 
         loadChildren: () => import('../dashboard/dashboard.module').then( m => m.DashboardPageModule)
+      },
+      {
+        path: 'usuarios',
+        loadChildren: () => import('../usuarios/usuarios.module').then( m => m.UsuariosPageModule)
+      },
+      {
+        path: 'paquete-agregar',
+        loadChildren: () => import('../paquete-agregar/paquete-agregar.module').then( m => m.PaqueteAgregarPageModule)
+      },
+      {
+        path: 'paquete',
+        loadChildren: () => import('../paquete/paquete.module').then( m => m.PaquetePageModule)
       }
     ]
   }
