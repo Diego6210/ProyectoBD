@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
 import { DataStorageService } from 'src/app/service/data-storage.service';
+import { DatabaseServerService } from 'src/app/service/database-server.service';
+import { DatabaseService } from 'src/app/service/database.service';
 
 @Component({
   selector: 'app-inicio',
@@ -43,12 +45,22 @@ export class InicioPage implements OnInit {
   Nombre: any;
   Apellido:any;
   PermisosUsuarios: any;
-
+  Usuarios: any; 
+  loading: any;
+  data: any = null;
+  Paquete: any = null;
+  
   constructor(
     private router: Router,    
-    private Storage: DataStorageService
+    private Storage: DataStorageService,
+    private DBLocal: DatabaseService,
+    private DBServer: DatabaseServerService
   ) 
   {
+    const path = window.location.pathname.split('inicio/')[1];
+    if (path !== undefined) {
+      this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
+    }
     this.router.events.subscribe((event: RouterEvent) => {
       this.selectedPath = event.url;
     });
@@ -62,6 +74,36 @@ export class InicioPage implements OnInit {
     this.Storage.getStorange('Apellido').then((val) => { this.Apellido = val.property });    
     this.Storage.getStorange('Nombre').then((val) => { this.Nombre = val.property });
     this.Storage.getStorange('TipoUsuario').then((val) => { this.PermisosUsuarios = val.property });
+  }
+
+  Router(rout: any){
+    this.router.navigateByUrl('inicio/'+rout);
+  }
+  
+  sincronizar(){
+    
+    this.DBLocal.getUsuariosServer().then((data) => {
+      this.Usuarios = data;
+
+      for(var i = 0; i < data.length; i++){
+//        console.log('Usuario: ' + data[i].Usuario);
+        
+        this.DBServer.setUsuario( data[i].Nombre,data[i].Apellido,data[i].Usuario,data[i].Password, data[i].TipoUsuario);
+      }
+    }).catch((error) => {
+
+    });
+
+    this.DBLocal.getPaquetesServer().then((data) => {
+      this.Paquete = data;
+
+      for(var i = 0; i < data.length; i++){
+        
+//        this.DBServer.setUsuario( data[i].Nombre,data[i].Apellido,data[i].Usuario,data[i].Password, data[i].TipoUsuario);
+      }
+    }).catch((error) => {
+
+    });
   }
 
   Logout(){    

@@ -1,17 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker,
-  Environment,
-  MarkerCluster
-} from '@ionic-native/google-maps';
+  GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions, Marker, MarkerCluster } from '@ionic-native/google-maps';
 import { LoadingController, ModalController } from '@ionic/angular';
+import { DatabaseService } from 'src/app/service/database.service';
+import { DataStorageService } from 'src/app/service/data-storage.service';
 
 @Component({
   selector: 'app-mapa',
@@ -23,7 +16,9 @@ export class MapaPage implements OnInit {
   constructor(
     private loadingCtrl: LoadingController,
     public modalController: ModalController,
-    public geolocation:Geolocation
+    public geolocation:Geolocation,
+    private Storage: DataStorageService,
+    private DBlocal: DatabaseService
   ) { }
   
   lat:number = 0;
@@ -32,7 +27,6 @@ export class MapaPage implements OnInit {
   loading: any;
 
   async ngOnInit() {
-    
     this.loadMap();
   }
   
@@ -81,10 +75,17 @@ export class MapaPage implements OnInit {
     marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
       confirm('Usted esta aqui');
     });
+    
+    this.Storage.getStorange('Usuario').then((val) => {
+      this.DBlocal.getPaquetesEntrega(val.property).then((data) => {
+      this.addCluster(data);
+      console.log(data);
 
-    this.addCluster(this.dummyData());
+      }).catch((error) => {
+        console.log(error);
+      });
+    });
   }
-
 
   addCluster(data) {
     let markerCluster: MarkerCluster = this.map.addMarkerClusterSync({
@@ -107,30 +108,5 @@ export class MapaPage implements OnInit {
       marker.showInfoWindow();
     });
   }
-
-
-  dummyData() {
-    return [
-      {
-        "position": {
-          "lat": 21.382314,
-          "lng": -157.933097
-        },
-        "name": "Starbucks - HI - Aiea  03641",
-        "address": "Aiea Shopping Center_99-115\nAiea Heights Drive #125_Aiea, Hawaii 96701",
-        "icon": "./../../assets/paquete.png"
-      },
-      {
-        "position": {
-          "lat": 21.3871,
-          "lng": -157.9482
-        },
-        "name": "Starbucks - HI - Aiea  03642",
-        "address": "Pearlridge Center_98-125\nKaonohi Street_Aiea, Hawaii 96701",
-        "icon": "./../../assets/paquete.png"
-      }
-    ];
-  }
-
 
 }

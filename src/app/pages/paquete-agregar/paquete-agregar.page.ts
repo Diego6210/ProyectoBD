@@ -11,6 +11,7 @@ import {
 } from '@ionic-native/google-maps';
 import { LoadingController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { DatabaseService } from 'src/app/service/database.service';
 
 @Component({
   selector: 'app-paquete-agregar',
@@ -21,7 +22,8 @@ export class PaqueteAgregarPage implements OnInit {
 
   constructor(
     public geolocation:Geolocation,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private DBlocal: DatabaseService
   ) { }
 
   
@@ -30,12 +32,16 @@ export class PaqueteAgregarPage implements OnInit {
   map: GoogleMap;
   loading: any;
   search_address: any;
-
+  usuarioEntregar: string;
   newLat: number;
   newLon: number;
-
+  Usuarios:any;
+  Descripcion: string;
   
   async ngOnInit() {    
+    this.DBlocal.getTodosUsuarios().then((data) => {
+      this.Usuarios = data;
+    });
     this.loadMap();
   }  
   
@@ -84,9 +90,14 @@ export class PaqueteAgregarPage implements OnInit {
       alert('Usted esta aqui');
     });
   
-    this.addCluster(this.dummyData());
-  }
+    this.DBlocal.getPaquetes().then((data) => {
+      this.addCluster(data);
+      console.log(data);
 
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
 
   addCluster(data) {
     let markerCluster: MarkerCluster = this.map.addMarkerClusterSync({
@@ -109,31 +120,6 @@ export class PaqueteAgregarPage implements OnInit {
     });
   }
 
-
-  dummyData() {
-    return [
-      {
-        "position": {
-          "lat": 21.382314,
-          "lng": -157.933097
-        },
-        "name": "Starbucks - HI - Aiea  03641",
-        "address": "Aiea Shopping Center_99-115\nAiea Heights Drive #125_Aiea, Hawaii 96701",
-        "icon": "./../../assets/paquete.png"
-      },
-      {
-        "position": {
-          "lat": 21.3871,
-          "lng": -157.9482
-        },
-        "name": "Starbucks - HI - Aiea  03642",
-        "address": "Pearlridge Center_98-125\nKaonohi Street_Aiea, Hawaii 96701",
-        "icon": "./../../assets/paquete.png"
-      }
-    ];
-  }
-
-  
   async Buscar(event) {
 
     await this.loading.present();
@@ -163,11 +149,18 @@ export class PaqueteAgregarPage implements OnInit {
         
         this.newLon =  marker.getPosition().lng;
 
-        console.log( marker.getPosition());
       marker.showInfoWindow();
       } else {
         alert("No encontrado");
       }
+    });
+  }
+
+  guardar(){
+    this.DBlocal.setPaquete(this.Descripcion,this.search_address,this.newLat,this.newLon,this.usuarioEntregar).then((data) => {
+      console.log('Agregado');
+    }).catch((error)=> {
+      console.log(error);
     });
   }
 

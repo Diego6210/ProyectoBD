@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class UsuarioService {
   
-  IdUsuario: number;
   Usuario: string;
   Nombre: string;
   Apellido: string

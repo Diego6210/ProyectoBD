@@ -33,7 +33,6 @@ export class LoginPage implements OnInit {
     this.DBLocal.getUsuarioLogin(this.user, this.pass).then((data) => {
         
       this.Storage.setStorange('Usuario',data.Usuario);
-      this.Storage.setStorange('IdUsuario',data.IdUsuario);
       this.Storage.setStorange('Nombre', data.Nombre);
       this.Storage.setStorange('Apellido',data.Apellido);
       this.Storage.setStorange('TipoUsuario',data.TipoUsuario);

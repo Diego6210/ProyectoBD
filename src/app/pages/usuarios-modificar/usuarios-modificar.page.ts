@@ -15,7 +15,7 @@ export class UsuariosModificarPage implements OnInit {
     private DBlocal: DatabaseService
   ) { }
 
-  id:number;
+  id:string;
   Usuario:string;
   Contrasena:string;
   Nombre:string;

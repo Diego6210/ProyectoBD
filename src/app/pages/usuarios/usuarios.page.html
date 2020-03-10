@@ -22,7 +22,7 @@
     <ion-item-sliding *ngFor="let Usu of Usuarios">
 
       <ion-item-options side="start">
-        <ion-item-option (click)="Modificar(Usu.IdUsuario)">Modificar</ion-item-option>
+        <ion-item-option (click)="Modificar(Usu.Usuario)">Modificar</ion-item-option>
       </ion-item-options>
   
       <ion-item>
@@ -33,7 +33,7 @@
       </ion-item>
   
       <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="Eliminar(Usu.IdUsuario)">Eliminar</ion-item-option>
+        <ion-item-option color="danger" (click)="Eliminar(Usu.Usuario)">Eliminar</ion-item-option>
       </ion-item-options>
     
     </ion-item-sliding>

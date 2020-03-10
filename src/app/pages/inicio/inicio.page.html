@@ -18,11 +18,13 @@
       </ion-card-header>
     </ion-card>
 
+    <ion-button expand="block" (click)="sincronizar()">Sincronizar Datos</ion-button>
+
     <ion-list id="inbox-list">
 
       <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
         
-        <ion-item *ngIf="PermisosUsuarios == p.permiso || p.permiso < 2" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
+        <ion-item *ngIf="PermisosUsuarios == p.permiso || p.permiso < 2" routerDirection="root" (click)="Router(p.url)"  lines="none" detail="false" [class.selected]="selectedIndex == i">
           <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
           <ion-label>{{ p.title }}</ion-label>
         </ion-item>

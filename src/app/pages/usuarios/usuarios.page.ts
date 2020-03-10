@@ -42,15 +42,15 @@ export class UsuariosPage implements OnInit {
     }, 2000);
   }
 
-  Eliminar(idUsuarios: number){
+  Eliminar(idUsuarios: string){
     this.presentAlertConfirm(idUsuarios);
   }
 
-  Modificar(idUsuario: number){
+  Modificar(idUsuario: string){
     this.presentModalModificar(idUsuario);
   }
   
-  async presentAlertConfirm(idUsuarios: number) {
+  async presentAlertConfirm(idUsuarios: string) {
 
     const alert = await this.alertController.create({
       header: 'Confirmar',
@@ -85,7 +85,7 @@ export class UsuariosPage implements OnInit {
     return await modal.present();
   }
 
-  async presentModalModificar(idUsuario: number) {
+  async presentModalModificar(idUsuario: string) {
     const modal = await this.modalController.create({
       component: UsuariosModificarPage,
       componentProps: { 
