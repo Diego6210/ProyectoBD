@@ -6,6 +6,8 @@
     <content src="index.html" />
     <access origin="*" />
     <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyB1KJKhyF445NJFv1ER_kCj99aNr5Gjpf4" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />

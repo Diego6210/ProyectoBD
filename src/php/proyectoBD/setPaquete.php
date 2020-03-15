@@ -4,11 +4,11 @@
     header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
     require("conexion.php");
-    $con=retornarConexion();
-
-    $TRANSACTION = 'START TRANSACTION';
-    $COMMIT = 'COMMIT';
-    $ROLLBACK = 'ROLLBACK';
+    $conexion=retornarConexion();
+    $TRANSACTION = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED";
+    $BEGIN = "BEGIN";
+    $COMMIT = "COMMIT";
+    $ROLLBACK = "ROLLBACK";
 
     $json = file_get_contents('php://input');
  
@@ -16,6 +16,8 @@
     
 
     mysqli_query($conexion, $TRANSACTION);
+
+    mysqli_query($conexion, $BEGIN);
         
     $sql = "INSERT INTO paquete (Descripcion, Dirreccion, Latitud, Longitud, StatusPaquete, EmpleadoEntrega, sincronizado) VALUES ('$params->Descripcion', '$params->Dirreccion', $params->Latitud, $params->Longitud, $params->StatusPaquete,  '$params->EmpleadoEntrega', 1)";
     

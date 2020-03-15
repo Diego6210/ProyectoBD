@@ -13,7 +13,7 @@
 
   mysqli_query($conexion, $BEGIN);
       
-  $sql = "select * from usuario";
+  $sql = "select * from paquete";
   
   $estatus = mysqli_query($conexion, $sql);
   

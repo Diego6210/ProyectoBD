@@ -159,6 +159,9 @@ export class PaqueteAgregarPage implements OnInit {
   guardar(){
     this.DBlocal.setPaquete(this.Descripcion,this.search_address,this.newLat,this.newLon,this.usuarioEntregar).then((data) => {
       console.log('Agregado');
+      alert('Agregado Correctamente');
+      this.Descripcion ='';
+      this.search_address = ''; 
     }).catch((error)=> {
       console.log(error);
     });

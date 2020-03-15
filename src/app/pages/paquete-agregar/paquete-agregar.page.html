@@ -11,7 +11,7 @@
   
   <ion-item>
     <ion-label>Descripcion:</ion-label>
-    <ion-input [(ngModel)]="Descripcion"></ion-input>
+    <ion-input [maxlength]="20" [(ngModel)]="Descripcion"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Empleado:</ion-label>
@@ -22,7 +22,7 @@
 
   <ion-item>
     <ion-label><ion-icon name="navigate"></ion-icon> </ion-label>
-    <ion-input  [(ngModel)]="search_address"></ion-input>
+    <ion-input [maxlength]="50" [(ngModel)]="search_address"></ion-input>
     <ion-button fill="outline" slot="end" color="primary" (click)="Buscar($event)">Buscar</ion-button>
   </ion-item>
 

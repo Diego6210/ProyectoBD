@@ -6,10 +6,10 @@
     require("conexion.php");
     $conexion=retornarConexion();
 
-    $TRANSACTION = "START TRANSACTION";
+    $TRANSACTION = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED";
+    $BEGIN = "BEGIN";
     $COMMIT = "COMMIT";
     $ROLLBACK = "ROLLBACK";
-
 
     $json = file_get_contents('php://input');
  
@@ -17,6 +17,8 @@
     
 
     mysqli_query($conexion, $TRANSACTION);
+
+    mysqli_query($conexion, $BEGIN);
 
     $sql = "INSERT INTO usuario(Nombre, Apellido, Usuario, Password, TipoUsuario, sincronizado) VALUES ('$params->Nombre', '$params->Apellido', '$params->Usuario', '$params->Password', $params->TipoUsuario, 1)";
     

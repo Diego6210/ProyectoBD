@@ -18,18 +18,18 @@
 
     <ion-item>
       <ion-label position="stacked">Contraseña <ion-text color="danger">*</ion-text></ion-label>
-      <ion-input [(ngModel)]="Contrasena" required type="text"></ion-input>
+      <ion-input  [maxlength]="20" [minlength]="5" [(ngModel)]="Contrasena" required type="text"></ion-input>
     </ion-item>
     
     <ion-item>
       <ion-label position="stacked">Nombre <ion-text color="danger">*</ion-text></ion-label>
-      <ion-input [(ngModel)]="Nombre"  required type="text"></ion-input>
+      <ion-input [maxlength]="30" [(ngModel)]="Nombre"  required type="text"></ion-input>
     </ion-item>
 
     
     <ion-item>
       <ion-label position="stacked">Apellido <ion-text color="danger">*</ion-text></ion-label>
-      <ion-input [(ngModel)]="Apellido"  required type="text"></ion-input>
+      <ion-input [maxlength]="40"  [(ngModel)]="Apellido"  required type="text"></ion-input>
     </ion-item>
 
 
@@ -43,6 +43,6 @@
 
   </ion-list>
   <section>
-    <ion-button *ngIf="Usuario != '' && Nombre != '' && Apellido != '' && TipoUsuario != '' && Contrasena != ''" expand="block">Modificar</ion-button>
+    <ion-button  (click)="setUsuarioModificar()" *ngIf="Usuario != '' && Nombre != '' && Apellido != '' && TipoUsuario != 0 && Contrasena != ''" expand="block">Modificar</ion-button>
   </section>
 </ion-content>

@@ -18,6 +18,10 @@ export class DatabaseServerService {
     return this.http.get(`${this.url}getUsuarios.php`);
   }
 
+  getPaquetes() {
+    return this.http.get(`${this.url}getPaquetes.php`);
+  }
+
   setUsuario(Nombre:string, Apellido:string, Usuario:string, Password:string, TipoUsuario:string) {
     
     let postData = {
@@ -27,8 +31,23 @@ export class DatabaseServerService {
       "Apellido": Apellido,
       "TipoUsuario": TipoUsuario
     }
+    
+    //this.http.post(`${this.url}setUsuario.php`, JSON.stringify(postData)).subscribe((data) => {console.log(data)});
 
-    this.http.post(`${this.url}setUsuario.php`, JSON.stringify(postData)).subscribe((data) => {console.log(data)});
+    return this.http.post(`${this.url}setUsuario.php`, JSON.stringify(postData));
+  }
+
+  setUsuarioModificar(Nombre:string, Apellido:string, Usuario:string, Password:string, TipoUsuario:string) {
+    
+    let postData = {
+      "Usuario": Usuario,
+      "Password": Password,
+      "Nombre": Nombre,
+      "Apellido": Apellido,
+      "TipoUsuario": TipoUsuario
+    }
+
+    return this.http.post(`${this.url}setUsuarioModificar.php`, JSON.stringify(postData));
   }
 
   setPaquete(Descripcion, Dirreccion, Latitud, Longitud, StatusPaquete, EmpleadoEntrega) {
@@ -42,6 +61,22 @@ export class DatabaseServerService {
       "EmpleadoEntrega": EmpleadoEntrega
     }
 
-     return this.http.post(`${this.url}setPaquete.php`, JSON.stringify(postData));
-   }
+//    this.http.post(`${this.url}setPaquete.php`, JSON.stringify(postData)).subscribe((data) => {console.log(data)});
+    return this.http.post(`${this.url}setPaquete.php`, JSON.stringify(postData));
+  }
+
+  setPaqueteModificar(Descripcion, Dirreccion, Latitud, Longitud, StatusPaquete, EmpleadoEntrega) {
+      
+    let postData = {
+      "Descripcion": Descripcion,
+      "Dirreccion": Dirreccion,
+      "Latitud": Latitud,
+      "Longitud": Longitud,
+      "StatusPaquete": StatusPaquete,
+      "EmpleadoEntrega": EmpleadoEntrega
+    }
+    
+    return this.http.post(`${this.url}setPaquete.php`, JSON.stringify(postData));
+  }
+
 }

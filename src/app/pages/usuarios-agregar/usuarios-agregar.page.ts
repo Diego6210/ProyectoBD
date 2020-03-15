@@ -15,11 +15,11 @@ export class UsuariosAgregarPage implements OnInit {
     private DBlocal: DatabaseService
   ) { }
 
-  Usuario:string;
-  Contrasena:string;
-  Nombre:string;
-  Apellido:string;
-  TipoUsuario:number;
+  Usuario:string = '';
+  Contrasena:string = '';
+  Nombre:string = '';
+  Apellido:string = '';
+  TipoUsuario:number = 0;
 
   ngOnInit() {
   } 

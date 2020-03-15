@@ -16,11 +16,11 @@ export class UsuariosModificarPage implements OnInit {
   ) { }
 
   id:string;
-  Usuario:string;
-  Contrasena:string;
-  Nombre:string;
-  Apellido:string;
-  TipoUsuario:number;
+  Usuario:string = '';
+  Contrasena:string = '';
+  Nombre:string = '';
+  Apellido:string = '';
+  TipoUsuario:number = 0;
 
 
   ngOnInit() {
@@ -36,10 +36,18 @@ export class UsuariosModificarPage implements OnInit {
 
   setUsuarioModificar(){
     this.DBlocal.setUsuarioModificar(this.id,this.Contrasena,this.Nombre,this.Apellido,this.TipoUsuario).then((data) => {
+      
+      this.DBlocal.getUsuarioStatusModificar(this.id).then((data) => {
+        //console.log(data.length + ' Usuario status sincronizado:' + this.id );
+        if(data.length > 0)
+          this.DBlocal.setUsuarioModificarStatusModificado(this.id);
+      });
+
       this.dismiss();
     }).catch((error) => {
       console.log('no modificardo');
     });
+
   }
 
   dismiss() {
