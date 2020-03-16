@@ -67,6 +67,7 @@ export class UsuariosPage implements OnInit {
           text: 'Okay',
           handler: () => {
             console.log('Confirm Okay');
+            this.DBlocal.setDeleteUsuario(idUsuarios).then((data) => {console.log('Agregado a delet')});
             this.DBlocal.deleteUsuario(idUsuarios).then((data) =>  {
               this.getUsuarios();
             });

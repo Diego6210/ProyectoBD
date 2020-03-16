@@ -38,8 +38,8 @@ export class DatabaseService {
         // Ejecuta los comandos de creacion de tablas 
         db.executeSql('create table usuario (Usuario varchar(20) PRIMARY KEY, Password varchar(20), Nombre varchar(50), Apellido varchar(50),TipoUsuario integer, sincronizado integer, modificado integer);', []).then(() => console.log('Executed SQL')).catch(e => console.log(e));
         db.executeSql('create table paquete (IdPaquete INTEGER PRIMARY KEY AUTOINCREMENT,Descripcion varchar(50), Dirreccion varchar(50), Latitud integer, Longitud integer, StatusPaquete integer, EmpleadoEntrega varchar(20),sincronizado integer, modificado integer);', []).then(() => console.log('Executed SQL')).catch(e => console.log(e));
-        db.executeSql('create table deletePaquete (Descripcion varchar(50), Dirreccion varchar(50), Latitud integer, Longitud integer, StatusPaquete integer, EmpleadoEntrega varchar(20),sincronizado integer);', []).then(() => console.log('Executed SQL')).catch(e => console.log(e));
-        db.executeSql('create table deleteUsuario (Usuario varchar(20) PRIMARY KEY, sincronizado integer, Dirreccion varchar(50), Latitud integer, Longitud integer);', []).then(() => console.log('Executed SQL')).catch(e => console.log(e));
+        db.executeSql('create table deletePaquete (Descripcion varchar(50) UNIQUE, Dirreccion varchar(50) UNIQUE, Latitud integer, Longitud integer, StatusPaquete integer, EmpleadoEntrega varchar(20),sincronizado integer);', []).then(() => console.log('Executed SQL')).catch(e => console.log(e));
+        db.executeSql('create table deleteUsuario (Usuario varchar(20) PRIMARY KEY, sincronizado integer);', []).then(() => console.log('Executed SQL')).catch(e => console.log(e));
         db.executeSql('insert or ignore into usuario(Nombre, Usuario, Password, TipoUsuario, sincronizado) values("Administrador", "Administrador", "admin", 2, 1)', []).then(() => console.log('Executed SQL')).catch(e => console.log(e));
         
         this.isOpen = true;
@@ -108,7 +108,7 @@ export class DatabaseService {
             Usuario: res.rows.item(i).Usuario
            });
         }
-        console.log(items);
+        //console.log(items);
         return items;
     });
   }
@@ -131,6 +131,17 @@ export class DatabaseService {
     })
   }
 
+  setDeleteUsuario(Usuario){
+    return new Promise((resolve, reject) =>{
+      let sql = 'insert into deleteUsuario(Usuario, sincronizado) values(?,0)';
+      this.db.executeSql(sql, [Usuario]).then((data) => {
+        resolve(data);
+      }),(error) => {
+        reject(error);
+      };  
+    });
+  }
+
   getPaquetes():Promise<any>{
 
     return this.db.executeSql('select * from paquete',[]).then(res => { 
@@ -151,6 +162,7 @@ export class DatabaseService {
             sincronizado: res.rows.item(i).sincronizado
           });
         }
+        //console.log(items);
         return items;
     });
   }
@@ -197,13 +209,26 @@ export class DatabaseService {
     })
   }
 
+  setDeleteUsuarioModificarStatus(Usuario: string){ 
+    return this.db.executeSql('UPDATE deleteUsuario SET sincronizado = 1  WHERE Usuario = ?', [Usuario])
+    .then(data => {
+      console.log('delete usuario actualizado');
+    })
+  }
+
+  setUsuarioStatusModificado(Usuario: string){
+    return this.db.executeSql('UPDATE usuario SET modificado = 0  WHERE Usuario = ?', [Usuario])
+    .then(data => {
+      console.log('usuario actualizado modificado');
+    });
+  }
+//error falta donde se modificara el estatus 
   setPaqueteModificarStatus(Usuario: string){
     return this.db.executeSql('UPDATE paquete SET sincronizado = 1  WHERE sincronizado = 0', [])
     .then(data => {
       console.log('paquete actualizado');
-    })
+    });
   }
-
 
   setUsuarioModificarStatusModificado(Usuario: string){
     return this.db.executeSql('UPDATE usuario SET modificado = 1  WHERE Usuario = ?', [Usuario])
@@ -211,12 +236,12 @@ export class DatabaseService {
       console.log('usuario actualizado estatus modificado');
     })
   }
-
+//error falta donde se modificara el estatus 
   setPaqueteModificarStatusModificado(Usuario: string){
     return this.db.executeSql('UPDATE paquete SET modificado = 1  WHERE sincronizado = 0', [])
     .then(data => {
       console.log('paquete actualizado');
-    })
+    });
   }
   
   getUsuarioStatusModificar(Usuario: string):Promise<any>{
@@ -230,6 +255,30 @@ export class DatabaseService {
            });
         }
         return items;
+    });
+  }
+
+  
+  getDeleteUsuarios():Promise<any>{
+
+    return this.db.executeSql('select * from deleteUsuario where sincronizado = 0',[]).then(res => { 
+       let items = [];
+
+        for (var i = 0; i < res.rows.length; i++) { 
+          items.push({ 
+            Usuario: res.rows.item(i).Usuario,
+            sincronizado: res.rows.item(i).sincronizado
+          });
+        }
+        //console.log(items);
+        return items;
+    });
+  }
+
+  setDeleteUsuariosModificarStatus(Usuario: string){
+    return this.db.executeSql('UPDATE deleteUsuario SET sincronizado = 1  WHERE sincronizado = 0', [])
+    .then(data => {
+      console.log('paquete actualizado');
     });
   }
 
@@ -252,7 +301,7 @@ export class DatabaseService {
             sincronizado : res.rows.item(i).sincronizado
           });
         }
-        console.log(items);
+        //console.log(items);
         return items;
     });
   }
@@ -272,7 +321,7 @@ export class DatabaseService {
             sincronizado: res.rows.item(i).sincronizado
            });
         }
-        console.log(items);
+        //console.log(items);
         return items;
     });
   }
@@ -316,7 +365,7 @@ export class DatabaseService {
             sincronizado : res.rows.item(i).sincronizado
           });
         }
-        console.log(items);
+        //console.log(items);
         return items;
     });
   }
@@ -336,7 +385,7 @@ export class DatabaseService {
             sincronizado: res.rows.item(i).sincronizado
            });
         }
-        console.log(items);
+        //console.log(items);
         return items;
     });
   }
@@ -358,7 +407,7 @@ export class DatabaseService {
             sincronizado : res.rows.item(i).sincronizado
           });
         }
-        console.log(items);
+        //console.log(items);
         return items;
     });
   }
@@ -378,10 +427,9 @@ export class DatabaseService {
             sincronizado: res.rows.item(i).sincronizado
            });
         }
-        console.log(items);
+        //console.log(items);
         return items;
     });
   }
-
 
 }

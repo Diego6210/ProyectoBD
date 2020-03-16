@@ -89,20 +89,13 @@ export class InicioPage implements OnInit {
     
     console.log('sincronizando');
 
-        // Obtener los datos al servidor 
+      // Obtener los datos al servidor 
 
     this.DBLocal.getUsuariosServer().then((data) => {
       console.log('agregar usuarios local a server');
 
-      var mensaje;
-     
       for(var i = 0; i < data.length; i++){
-        
-        this.DBServer.setUsuario( data[i].Nombre,data[i].Apellido,data[i].Usuario,data[i].Password, data[i].TipoUsuario).subscribe((data) => {
-          
-          console.log(data);
-          mensaje = data;
-        });
+        this.DBServer.setUsuario( data[i].Nombre,data[i].Apellido,data[i].Usuario,data[i].Password, data[i].TipoUsuario).subscribe((data) => {});
         //if(mensaje == 'OK')
           this.DBLocal.setUsuarioModificarStatus(data[i].Usuario);
       }
@@ -114,14 +107,8 @@ export class InicioPage implements OnInit {
     this.DBLocal.getPaquetesServer().then((data) => {     
       console.log('agregar paquetes local a server');
 
-      var mensaje;
-
       for(var i = 0; i < data.length; i++){
-        console.log('paquetes: ' + data[i].Descripcion);
-        this.DBServer.setPaquete( data[i].Descripcion,data[i].Dirreccion,data[i].Latitud,data[i].Longitud, data[i].StatusPaquete, data[i].EmpleadoEntrega).subscribe((data) => {
-          console.log(data);
-          mensaje = data;
-        });
+        this.DBServer.setPaquete( data[i].Descripcion,data[i].Dirreccion,data[i].Latitud,data[i].Longitud, data[i].StatusPaquete, data[i].EmpleadoEntrega).subscribe((data) => {});
         //if(mensaje == 'OK')
           this.DBLocal.setPaqueteModificarStatus(data[i].Usuario);
       }
@@ -129,16 +116,59 @@ export class InicioPage implements OnInit {
       console.log(error);
     });
 
+    /*this.DBLocal.getPaquetesModificarServer().then((data) => {
+      console.log('modificar paquete local a server');
 
+      var mensaje;
+     
+      for(var i = 0; i < data.length; i++){
+        
+        this.DBServer.setPaqueteModificar( data[i].Descripcion, data[i].Dirreccion, data[i].Latitud, data[i].Longitud, data[i].StatusPaquete, data[i].EmpleadoEntrega).subscribe((data) => {
+          
+          console.log(data);
+          mensaje = data;
+        });
+        //if(mensaje == 'OK')
+          //this.DBLocal.setUsuarioStatusModificado(data[i].Descripcion, data[i].Dirreccion);
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+    */
+
+    this.DBLocal.getUsuariosModificarServer().then((data) => {
+      console.log('modificar usuarios local a server');
+      for(var i = 0; i < data.length; i++){
+        
+        this.DBServer.setUsuarioModificar( data[i].Nombre,data[i].Apellido,data[i].Usuario,data[i].Password, data[i].TipoUsuario).subscribe((data) => {});
+        //if(mensaje == 'OK')
+          this.DBLocal.setUsuarioStatusModificado(data[i].Usuario);
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+
+    //Eliminar usuario
+
+    this.DBLocal.getDeleteUsuarios().then((data) => {
+      console.log('eliminar usuarios local a server');
+
+      for(var i = 0; i < data.length; i++){
+        this.DBServer.setUsuarioEliminar(data[i].Usuario).subscribe((data) => {});
+        //if(mensaje == 'OK')
+          this.DBLocal.setDeleteUsuarioModificarStatus(data[i].Usuario);
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+    
     // Obtener los datos del servidor 
 
     this.DBServer.getUsuario().subscribe((data) => {
 
       console.log('obtener usuarios server a local');
 
-      console.log(data);
       for(var i = 0; i < Object.keys(data).length; i++){
-        console.log(data[i].Usuario);
         this.DBLocal.setUsuarioServer(data[i].Usuario,data[i].Contrasena,data[i].Nombre,data[i].Apellido,data[i].TipoUsuario).then(() => {console.log('Usuario agregado ')});
       }
     });
@@ -148,15 +178,11 @@ export class InicioPage implements OnInit {
 
       console.log('obtener paquetes server a local');
 
-      console.log(data);
       for(var i = 0; i < Object.keys(data).length; i++){
-        //console.log(data[i].Usuario);
         this.DBLocal.setPaqueteServer(data[i].Descripcion, data[i].Dirreccion, data[i].Latitud, data[i].Longitud, data[i].EmpleadoEntrega).then(() => {console.log('Paquete agregado')});
       }
     });
-
     this.loading.dismiss();
-
   }
 
   Logout(){    

@@ -50,6 +50,15 @@ export class DatabaseServerService {
     return this.http.post(`${this.url}setUsuarioModificar.php`, JSON.stringify(postData));
   }
 
+  setUsuarioEliminar(Usuario:string) {
+    
+    let postData = {
+      "Usuario": Usuario
+    }
+
+    return this.http.post(`${this.url}setUsuarioEliminar.php`, JSON.stringify(postData));
+  }
+
   setPaquete(Descripcion, Dirreccion, Latitud, Longitud, StatusPaquete, EmpleadoEntrega) {
     
     let postData = {
