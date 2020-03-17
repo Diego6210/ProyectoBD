@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PaquetePageRoutingModule } from './paquete-routing.module';
 
 import { PaquetePage } from './paquete.page';
+import { PaqueteModificarPageModule } from '../paquete-modificar/paquete-modificar.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PaquetePageRoutingModule
+    PaquetePageRoutingModule,
+    PaqueteModificarPageModule
   ],
   declarations: [PaquetePage]
 })

@@ -43,6 +43,10 @@ const routes: Routes = [
   {
     path: 'paquete-agregar',
     loadChildren: () => import('./pages/paquete-agregar/paquete-agregar.module').then( m => m.PaqueteAgregarPageModule)
+  },
+  {
+    path: 'paquete-modificar',
+    loadChildren: () => import('./pages/paquete-modificar/paquete-modificar.module').then( m => m.PaqueteModificarPageModule)
   }
 ];
 

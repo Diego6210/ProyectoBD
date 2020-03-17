@@ -22,6 +22,22 @@ export class DatabaseServerService {
     return this.http.get(`${this.url}getPaquetes.php`);
   }
 
+  getUsuarioModificar() {
+    return this.http.get(`${this.url}getUsuariosModificar.php`);
+  }
+
+  getPaquetesModificar() {
+    return this.http.get(`${this.url}getPaquetesModificar.php`);
+  }
+
+  getUsuarioEliminar() {
+    return this.http.get(`${this.url}getUsuariosEliminar.php`);
+  }
+
+  getPaquetesEliminar() {
+    return this.http.get(`${this.url}getPaquetesEliminar.php`);
+  }
+
   setUsuario(Nombre:string, Apellido:string, Usuario:string, Password:string, TipoUsuario:string) {
     
     let postData = {
@@ -59,6 +75,16 @@ export class DatabaseServerService {
     return this.http.post(`${this.url}setUsuarioEliminar.php`, JSON.stringify(postData));
   }
 
+  setPaqueteEliminar(Descripcion:string,Dirreccion:string) {
+    
+    let postData = {
+      "Descripcion": Descripcion,
+      "Dirreccion": Dirreccion
+    }
+
+    return this.http.post(`${this.url}setPaqueteEliminar.php`, JSON.stringify(postData));
+  }
+
   setPaquete(Descripcion, Dirreccion, Latitud, Longitud, StatusPaquete, EmpleadoEntrega) {
     
     let postData = {
@@ -85,7 +111,7 @@ export class DatabaseServerService {
       "EmpleadoEntrega": EmpleadoEntrega
     }
     
-    return this.http.post(`${this.url}setPaquete.php`, JSON.stringify(postData));
+    return this.http.post(`${this.url}setPaqueteModificar.php`, JSON.stringify(postData));
   }
 
 }
