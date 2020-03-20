@@ -13,7 +13,7 @@
 
   mysqli_query($conexion, $BEGIN);
       
-  $sql = "select usuario.Usuario, Password, Nombre, Apellido, TipoUsuario from usuario inner join deleteUsuario on usuario.Usuario = deleteUsuario.Usuario;";
+  $sql = "select * from deleteUsuario";
   
   $estatus = mysqli_query($conexion, $sql);
   

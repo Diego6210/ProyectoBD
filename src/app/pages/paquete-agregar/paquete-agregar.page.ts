@@ -31,12 +31,12 @@ export class PaqueteAgregarPage implements OnInit {
   lon:number = 0;
   map: GoogleMap;
   loading: any;
-  search_address: any;
-  usuarioEntregar: string;
+  search_address: any = '';
+  usuarioEntregar: string = '';
   newLat: number;
   newLon: number;
   Usuarios:any;
-  Descripcion: string;
+  Descripcion: string = '';
   
   async ngOnInit() {    
     this.DBlocal.getTodosUsuarios().then((data) => {

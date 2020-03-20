@@ -21,6 +21,7 @@ export class PaquetePage implements OnInit {
   Paquetes:any;
   
   ngOnInit() {
+    this.getPaquetes();
   }
 
   getPaquetes() {

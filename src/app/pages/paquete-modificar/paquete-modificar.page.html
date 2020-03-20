@@ -14,19 +14,21 @@
     
     <ion-item>
       <ion-label position="stacked">Dirreccion <ion-text color="danger">*</ion-text></ion-label>
-      <ion-input [maxlength]="20" disabled="true" [minlength]="5" [(ngModel)]="Contrasena" required type="text"></ion-input>
+      <ion-input [maxlength]="20" disabled="true" [minlength]="5" [(ngModel)]="name" required type="text"></ion-input>
     </ion-item>
     
     <ion-item>
       <ion-label position="stacked">Descripcion <ion-text color="danger">*</ion-text></ion-label>
-      <ion-input [maxlength]="20" [(ngModel)]="Usuario" required type="text"></ion-input>
+      <ion-input [maxlength]="20" [(ngModel)]="address" required type="text"></ion-input>
     </ion-item>
     
-    <ion-select [(ngModel)]="StatusPaquete">
-      <ion-select-option value="0">No entregado</ion-select-option>
-      <ion-select-option value="1">Entregador</ion-select-option>
-    </ion-select>
-
+    <ion-item>
+      <ion-label>Estatus del paquete</ion-label>
+      <ion-select [(ngModel)]="StatusPaquete">
+        <ion-select-option value="0">No entregado</ion-select-option>
+        <ion-select-option value="1">Entregador</ion-select-option>
+      </ion-select>
+    </ion-item> 
 
     <ion-item>
       <ion-label>Usuario a entregar</ion-label>
@@ -38,6 +40,6 @@
   </ion-list>
 
   <section>
-    <ion-button *ngIf="name != '' && address != '' && StatusPaquete != 0 && EmpleadoEntrega != ''" (click)="agregar()" expand="block">Modificar</ion-button>
+    <ion-button *ngIf="EmpleadoEntrega != ''" (click)="agregar()" expand="block">Modificar</ion-button>
   </section>
 </ion-content>

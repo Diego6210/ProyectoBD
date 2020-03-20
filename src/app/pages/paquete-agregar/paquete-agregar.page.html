@@ -27,7 +27,7 @@
   </ion-item>
 
   
-  <ion-item >
+  <ion-item *ngIf="search_address != '' && usuarioEntregar != '' && Descripcion != '' &&">
     <ion-button  expand="block" (click)="guardar()">Guardar</ion-button>
   </ion-item>
   

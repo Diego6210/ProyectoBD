@@ -13,7 +13,7 @@
 
   mysqli_query($conexion, $BEGIN);
       
-  $sql = "select paquete.Descripcion, paquete.Dirreccion, Latitud ,Longitud, StatusPaquete, EmpleadoEntrega from paquete inner join deletePaquete on paquete.Dirreccion = deletePaquete.Dirreccion and paquete.Descripcion = deletePaquete.Descripcion;";
+  $sql = "select * from deletePaquete;";
   
   $estatus = mysqli_query($conexion, $sql);
   

@@ -103,9 +103,21 @@ export class MapaPage implements OnInit {
     markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((params) => {
       let marker: Marker = params[1];
       marker.setTitle(marker.get("name"));
-      confirm('Paquete entregado?');
+      
+      if(marker.get("StatusPaquete") == 0){
+        if(confirm('Paquete entregado?')){
+          console.log("click OK");
+          this.DBlocal.setPaqueteEstatusEntrega(marker.get("IdPaquete"));
+          this.DBlocal.getPaqueteStatusModificar(marker.get("IdPaquete")).then((data) => {
+            if(data.length > 0)
+              this.DBlocal.setPaqueteModificarStatusModificado(marker.get("IdPaquete"));
+          });
+        }
+      }
+
       marker.setSnippet(marker.get("address"));
       marker.showInfoWindow();
+
     });
   }
 

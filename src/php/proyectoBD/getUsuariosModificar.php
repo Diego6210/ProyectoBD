@@ -13,8 +13,7 @@
 
   mysqli_query($conexion, $BEGIN);
       
-  $sql = "
-  select usuario.Usuario, Password, Nombre, Apellido, TipoUsuario from usuario inner join modificarUsuario on usuario.Usuario = modificarUsuario.Usuario;";
+  $sql = "select * from modificarUsuario;";
   
   $estatus = mysqli_query($conexion, $sql);
   

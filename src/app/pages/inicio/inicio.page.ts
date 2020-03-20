@@ -165,7 +165,7 @@ export class InicioPage implements OnInit {
 
     this.DBServer.getUsuarioEliminar().subscribe((data) => {
 
-      console.log('obtener usuariosa eliminar server a local');
+      console.log('obtener usuarios a eliminar server a local');
 
       for(var i = 0; i < Object.keys(data).length; i++){
         this.DBLocal.deleteUsuario(data[i].Usuario).then(() => {console.log('Usuario eliminar')});

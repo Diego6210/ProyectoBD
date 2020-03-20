@@ -37,8 +37,8 @@ export class DatabaseService {
         
         // Ejecuta los comandos de creacion de tablas 
         db.executeSql('create table usuario (Usuario varchar(20) PRIMARY KEY, Password varchar(20), Nombre varchar(50), Apellido varchar(50),TipoUsuario integer, sincronizado integer, modificado integer);', []).then(() => console.log('Executed SQL')).catch(e => console.log(e));
-        db.executeSql('create table paquete (IdPaquete INTEGER PRIMARY KEY AUTOINCREMENT,Descripcion varchar(50), Dirreccion varchar(50), Latitud integer, Longitud integer, StatusPaquete integer, EmpleadoEntrega varchar(20),sincronizado integer, modificado integer);', []).then(() => console.log('Executed SQL')).catch(e => console.log(e));
-        db.executeSql('create table deletePaquete (Descripcion varchar(50) UNIQUE, Dirreccion varchar(50) UNIQUE,sincronizado integer);', []).then(() => console.log('Executed SQL')).catch(e => console.log(e));
+        db.executeSql('create table paquete (IdPaquete INTEGER PRIMARY KEY AUTOINCREMENT,Descripcion varchar(50) UNIQUE, Dirreccion varchar(50) UNIQUE, Latitud integer, Longitud integer, StatusPaquete integer, EmpleadoEntrega varchar(20),sincronizado integer, modificado integer);', []).then(() => console.log('Executed SQL')).catch(e => console.log(e));
+        db.executeSql('create table deletePaquete (Descripcion varchar(50), Dirreccion varchar(50),sincronizado integer);', []).then(() => console.log('Executed SQL')).catch(e => console.log(e));
         db.executeSql('create table deleteUsuario (Usuario varchar(20) PRIMARY KEY, sincronizado integer);', []).then(() => console.log('Executed SQL')).catch(e => console.log(e));
         db.executeSql('insert or ignore into usuario(Nombre, Usuario, Password, TipoUsuario, sincronizado) values("Administrador", "Administrador", "admin", 2, 1)', []).then(() => console.log('Executed SQL')).catch(e => console.log(e));
         
@@ -290,6 +290,13 @@ export class DatabaseService {
     return this.db.executeSql('UPDATE paquete SET modificado = 1  WHERE IdPaquete = ?', [idpaquete])
     .then(data => {
       console.log('paquete actualizado');
+    });
+  }
+
+  setPaqueteEstatusEntrega(idpaquete: string){
+    return this.db.executeSql('UPDATE paquete SET StatusPaquete = 1  WHERE IdPaquete = ?', [idpaquete])
+    .then(data => {
+      console.log('paquete estatus entrega actualizado: ' + idpaquete);
     });
   }
   
