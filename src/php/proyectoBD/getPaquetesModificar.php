@@ -13,7 +13,7 @@
 
   mysqli_query($conexion, $BEGIN);
       
-  $sql = "select * from modificarPaquete;";
+  $sql = "select paquete.* from paquete inner join modificarPaquete on modificarPaquete.Descripcion = paquete.Descripcion and  modificarPaquete.Dirreccion = paquete.Dirreccion;";
   
   $estatus = mysqli_query($conexion, $sql);
   

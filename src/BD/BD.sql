@@ -10,8 +10,8 @@ sincronizado int
 
 create table paquete (
 IdPaquete int auto_increment PRIMARY KEY,
-Descripcion varchar(50), 
-Dirreccion varchar(50), 
+Descripcion varchar(50) UNIQUE, 
+Dirreccion varchar(50) UNIQUE,
 Latitud double, 
 Longitud double, 
 StatusPaquete integer, 
