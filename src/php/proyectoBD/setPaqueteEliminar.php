@@ -18,8 +18,8 @@
     mysqli_query($conexion, $TRANSACTION);
 
     mysqli_query($conexion, $BEGIN);
-        
-    $sql = "DELETE FROM  paquete WHERE";
+
+    $sql = "DELETE FROM  paquete WHERE Descripcion = '$params->Descripcion' and Dirreccion = '$params->Descripcion'";
     
     $estatus = mysqli_query($conexion, $sql);
 
@@ -33,6 +33,8 @@
     {
         mysqli_query($conexion, $COMMIT);
         echo "OK";
+        $sql = "INSERT INTO deletePaquete(Descripcion, Dirreccion, sincronizado) VALUES ('$params->Descripcion', '$params->Dirreccion', 1)";
+        mysqli_query($conexion, $sql);
     }
     
     mysqli_close($conexion);

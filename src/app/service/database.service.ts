@@ -92,7 +92,7 @@ export class DatabaseService {
   setPaqueteModificar(Descripcion:string, Dirreccion:string, EmpleadoEntrega:string, StatusPaquete:number, IdPaquete:string){
     let sql = 'UPDATE paquete SET Descripcion = ?, Dirreccion = ?, EmpleadoEntrega  = ?, StatusPaquete = ? WHERE IdPaquete = ?';
     return this.db.executeSql(sql, [Descripcion, Dirreccion, EmpleadoEntrega, StatusPaquete,IdPaquete]).then(data => {
-      console.log('usuario actualizado');
+      console.log('paquete actualizado');
     });
   }
 
@@ -289,7 +289,7 @@ export class DatabaseService {
   setPaqueteModificarStatusModificado(idpaquete: string){
     return this.db.executeSql('UPDATE paquete SET modificado = 1  WHERE IdPaquete = ?', [idpaquete])
     .then(data => {
-      console.log('paquete actualizado');
+      console.log('paquete actualizado status');
     });
   }
 

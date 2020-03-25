@@ -38,7 +38,7 @@ export class PaqueteModificarPage implements OnInit {
     });
   }
 
-  setUsuarioModificar(){
+  setPaqueteModificar(){
     this.DBlocal.setPaqueteModificar(this.name, this.address, this.EmpleadoEntrega, this.StatusPaquete, this.id).then((data) => {
       
       this.DBlocal.getPaqueteStatusModificar(this.id).then((data) => {

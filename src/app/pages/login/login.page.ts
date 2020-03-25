@@ -155,6 +155,25 @@ export class LoginPage implements OnInit {
     });
     
     // Obtener los datos del servidor 
+    this.DBServer.getUsuario().subscribe((data) => {
+
+      console.log('obtener usuarios server a local');
+      console.log(data);
+      for(var i = 0; i < Object.keys(data).length; i++){
+        this.DBLocal.setUsuarioServer(data[i].Usuario,data[i].Contrasena,data[i].Nombre,data[i].Apellido,data[i].TipoUsuario).then(() => {console.log('Usuario agregado ')});
+      }
+    });
+
+    
+    this.DBServer.getPaquetes().subscribe((data) => {
+
+      console.log('obtener paquetes server a local');
+
+      for(var i = 0; i < Object.keys(data).length; i++){
+        this.DBLocal.setPaqueteServer(data[i].Descripcion, data[i].Dirreccion, data[i].Latitud, data[i].Longitud, data[i].EmpleadoEntrega).then(() => {console.log('Paquete agregado')});
+      }
+    });
+
 
     this.DBServer.getUsuarioEliminar().subscribe((data) => {
 
@@ -179,7 +198,7 @@ export class LoginPage implements OnInit {
       console.log('obtener usuariosa modificar server a local');
 
       for(var i = 0; i < Object.keys(data).length; i++){
-        this.DBLocal.setUsuarioModificarServer(data[i].Usuario,data[i].Contrasena,data[i].Nombre,data[i].Apellido,data[i].TipoUsuario).then(() => {console.log('Usuario modificado ')});
+        this.DBLocal.setUsuarioModificarServer(data[i].Usuario,data[i].Password,data[i].Nombre,data[i].Apellido,data[i].TipoUsuario).then(() => {console.log('Usuario modificado ')});
       }
     });
 
@@ -189,25 +208,6 @@ export class LoginPage implements OnInit {
 
       for(var i = 0; i < Object.keys(data).length; i++){ 
         this.DBLocal.setPaqueteModificarServer(data[i].Descripcion, data[i].Dirreccion, data[i].EmpleadoEntrega,data[i].StatusPaquete).then(() => {console.log('Paquete agregado')});
-      }
-    });
-
-    this.DBServer.getUsuario().subscribe((data) => {
-
-      console.log('obtener usuarios server a local');
-
-      for(var i = 0; i < Object.keys(data).length; i++){
-        this.DBLocal.setUsuarioServer(data[i].Usuario,data[i].Contrasena,data[i].Nombre,data[i].Apellido,data[i].TipoUsuario).then(() => {console.log('Usuario agregado ')});
-      }
-    });
-
-    
-    this.DBServer.getPaquetes().subscribe((data) => {
-
-      console.log('obtener paquetes server a local');
-
-      for(var i = 0; i < Object.keys(data).length; i++){
-        this.DBLocal.setPaqueteServer(data[i].Descripcion, data[i].Dirreccion, data[i].Latitud, data[i].Longitud, data[i].EmpleadoEntrega).then(() => {console.log('Paquete agregado')});
       }
     });
 

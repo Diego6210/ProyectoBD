@@ -57,7 +57,8 @@ export class MapaPage implements OnInit {
          tilt: 30
        }
     };
-    
+
+    //this.map.clear();
     this.map = GoogleMaps.create('map_canvas' , mapOptions);
     this.loading.dismiss();
 
@@ -110,7 +111,10 @@ export class MapaPage implements OnInit {
           this.DBlocal.setPaqueteEstatusEntrega(marker.get("IdPaquete"));
           this.DBlocal.getPaqueteStatusModificar(marker.get("IdPaquete")).then((data) => {
             if(data.length > 0)
+            {
               this.DBlocal.setPaqueteModificarStatusModificado(marker.get("IdPaquete"));
+              //this.loadMap();
+            }
           });
         }
       }

@@ -33,6 +33,8 @@
     {
         mysqli_query($conexion, $COMMIT);
         echo "OK";
+        $sql = "INSERT INTO modificarPaquete( Descripcion,Dirreccion,sincronizado) VALUES ('$params->Descripcion','$params->Dirreccion', 1)";
+        mysqli_query($conexion, $sql);
     }
     
     mysqli_close($conexion);

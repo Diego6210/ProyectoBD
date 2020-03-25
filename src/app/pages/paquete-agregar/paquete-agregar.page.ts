@@ -139,7 +139,7 @@ export class PaqueteAgregarPage implements OnInit {
       if (results.length > 0) {
         let marker: Marker = this.map.addMarkerSync({
           'position': results[0].position,
-          'title':  JSON.stringify(results[0].position)
+          'title':  this.search_address
         });
         this.map.animateCamera({
           'target': marker.getPosition(),
